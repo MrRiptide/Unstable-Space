@@ -3,7 +3,7 @@ extends Area2D
 
 # Declare member variables here. Examples:
 var direction = 0
-var speed = 10
+var speed = 50
 var distance = 1000
 
 

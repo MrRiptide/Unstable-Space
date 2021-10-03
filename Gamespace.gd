@@ -6,6 +6,7 @@ var health = max_health
 
 
 func _ready():
+	randomize()
 	var asteroid = asteroidScene.instance()
 	
 	get_node("Asteroids").add_child(asteroid)
@@ -36,18 +37,19 @@ func _process(delta):
 		
 		# doing recoil of the gun
 		
-		var max_x_offset = 150
+		var max_y_offset = 150
 		var wiggle_coef = 50
 		# thinking to bound the recoil so that it doesnt end up off the screen
-		y_offset = min(max_x_offset, y_offset + 10 + 25*(1-health/max_health))
-		if y_offset > max_x_offset:
-			x_offset = (1 - health/max_health)*wiggle_coef * sin(y_offset)
+		y_offset = min(max_y_offset, y_offset + 10 + 5*(1-health/max_health))
+		
+		print((1.2 - float(health)/max_health))
+		x_offset = (1.2 - float(health)/max_health)*wiggle_coef * randf()
 		
 		var hit_reg = get_node("Gunner/Hit Registration")
 		
 		hit_reg.global_position = get_global_mouse_position() - Vector2(
 			x_offset,
-			min(y_offset, max_x_offset + (health/max_health)*wiggle_coef * cos(y_offset))
+			min(y_offset + (1.2 - float(health)/max_health)*wiggle_coef * randf(), 100000)
 		)
 		
 		# hit registration
