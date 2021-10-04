@@ -89,13 +89,14 @@ func _process(delta):
 			for area in hit_reg.get_overlapping_areas():
 				#print(area.get_parent().name)
 				if "Asteroid" in area.get_parent().name:
-					area.get_parent().damage(self)
+					area.get_parent().damage(self, hit_reg)
 			
 			# since the bullet trace is a child of hit registration it should mark the point that the bullet was fired at
 			get_node("Gunner/Hit Registration/Bullet Trace").emitting = true
 			
 			heat += heating_rate
 			shots_fired += 1
+			get_node("Shoot SFX").play()
 			get_node("Gunner/Fire Rate").start()
 	else:
 		get_node("Gunner/Hit Registration/Bullet Trace").emitting = false

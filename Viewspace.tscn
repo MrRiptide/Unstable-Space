@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Gamespace.gd" type="Script" id=1]
 [ext_resource path="res://res/gattling_gun-Sheet.png" type="Texture" id=2]
 [ext_resource path="res://res/earth_explosion.png" type="Texture" id=3]
 [ext_resource path="res://Pause Screen.gd" type="Script" id=4]
+[ext_resource path="res://res/hit.wav" type="AudioStream" id=5]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -266,6 +267,9 @@ margin_right = 150.0
 margin_bottom = 419.0
 rect_min_size = Vector2( 0, 35 )
 text = "Main Menu"
+
+[node name="Shoot SFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
 
 [connection signal="timeout" from="Asteroid Timer" to="." method="_on_Asteroid_Timer_timeout"]
 [connection signal="pressed" from="Game End Screen/VBoxContainer/HBoxContainer/Play Again Button" to="." method="_on_Play_Again_Button_pressed"]

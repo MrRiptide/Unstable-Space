@@ -75,13 +75,18 @@ func _process(delta):
 	var max_scale = 1.5
 	get_node(".").scale = Vector2(max_scale*percent_size, max_scale*percent_size)
 
-func damage(score_manager):
+func damage(score_manager, hit_reg):
+	health -= 1
+	
 	var explosionSource = load("res://Asteroids/ExplosionParticles.tscn")
 	var explosion = explosionSource.instance()
-	explosion.global_position = self.global_position
-	var percent_size = 1-(distance / 1000)
-	var max_scale = 1.5
+	explosion.global_position = hit_reg.global_position
 	#explosion.scale = 100*get_node(".").scale
 	explosion.source = self
+	if health == 0:
+		explosion.global_position = self.global_position
+		explosion.destroy = true
+		score_manager.add_score(100)
+	else:
+		explosion.global_position = hit_reg.global_position
 	get_parent().add_child(explosion)
-	score_manager.add_score(100)
