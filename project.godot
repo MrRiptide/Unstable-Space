@@ -14,6 +14,15 @@ config/name="Unstable Space"
 run/main_scene="res://Viewspace.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+
+[global]
+
+resize=false
+
 [input]
 
 fire={
