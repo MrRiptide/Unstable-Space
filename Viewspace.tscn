@@ -2,39 +2,33 @@
 
 [ext_resource path="res://Gamespace.gd" type="Script" id=1]
 [ext_resource path="res://res/gattling_gun-Sheet.png" type="Texture" id=2]
+[ext_resource path="res://res/earth_explosion.png" type="Texture" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 64, 128 )
 
 [sub_resource type="AtlasTexture" id=2]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 64, 0, 64, 128 )
 
 [sub_resource type="AtlasTexture" id=3]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 128, 0, 64, 128 )
 
 [sub_resource type="AtlasTexture" id=4]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 192, 0, 64, 128 )
 
 [sub_resource type="AtlasTexture" id=5]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 64, 0, 64, 128 )
 
 [sub_resource type="AtlasTexture" id=6]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 128, 0, 64, 128 )
 
 [sub_resource type="AtlasTexture" id=7]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 192, 0, 64, 128 )
 
@@ -50,10 +44,6 @@ animations = [ {
 "name": "charging",
 "speed": 5.0
 } ]
-
-[sub_resource type="CapsuleShape2D" id=9]
-radius = 180.616
-height = 61.4671
 
 [sub_resource type="CircleShape2D" id=10]
 radius = 1.0
@@ -86,24 +76,21 @@ color_ramp = SubResource( 12 )
 [node name="Base" type="Node2D"]
 script = ExtResource( 1 )
 
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 512, 304 )
+scale = Vector2( 3.98, 3.98 )
+texture = ExtResource( 3 )
+
 [node name="Asteroids" type="Node2D" parent="."]
 
 [node name="Gunner" type="AnimatedSprite" parent="."]
 position = Vector2( 512, 536 )
 frames = SubResource( 8 )
 animation = "firing"
-frame = 2
 playing = true
 __meta__ = {
 "_edit_group_": true
 }
-
-[node name="NoSpawn" type="Area2D" parent="Gunner"]
-position = Vector2( 0, 50 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Gunner/NoSpawn"]
-rotation = 1.5708
-shape = SubResource( 9 )
 
 [node name="Fire Rate" type="Timer" parent="Gunner"]
 wait_time = 0.1
@@ -124,9 +111,10 @@ wait_time = 5.0
 autostart = true
 
 [node name="Score Label" type="Label" parent="."]
-margin_left = 924.0
-margin_right = 1024.0
-margin_bottom = 14.0
+margin_left = 912.0
+margin_top = 8.0
+margin_right = 1016.0
+margin_bottom = 22.0
 text = "42069"
 align = 2
 __meta__ = {
@@ -138,7 +126,7 @@ margin_top = 568.0
 margin_right = 192.0
 margin_bottom = 600.0
 step = 1.0
-value = 70.0
+value = 100.0
 rounded = true
 __meta__ = {
 "_edit_use_anchors_": false
