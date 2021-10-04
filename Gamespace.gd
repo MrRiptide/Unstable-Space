@@ -47,7 +47,7 @@ func _process(delta):
 	if Input.is_action_pressed("fire"):
 		if get_node("Gunner").frames.get_animation_speed("charging") < 40:
 			get_node("Gunner").set_animation("charging")
-			print(barrel_speed)
+			#print(barrel_speed)
 			barrel_speed += barrel_accel*delta
 			get_node("Gunner").frames.set_animation_speed("charging", int(barrel_speed))
 		elif get_node("Gunner/Fire Rate").time_left == 0:
@@ -74,7 +74,7 @@ func _process(delta):
 			# hit registration
 			
 			for area in hit_reg.get_overlapping_areas():
-				print(area.get_parent().name)
+				#print(area.get_parent().name)
 				if "Asteroid" in area.get_parent().name:
 					area.get_parent().damage(self)
 			

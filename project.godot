@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Unstable Space"
-run/main_scene="res://Viewspace.tscn"
+run/main_scene="res://Main Menu.tscn"
 config/icon="res://icon.png"
 
 [display]
