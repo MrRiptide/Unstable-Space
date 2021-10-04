@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var asteroidScene = preload("res://Asteroid.tscn")
+onready var asteroidScene = preload("res://Asteroids/Asteroid.tscn")
 var max_health = 100
 var health = max_health
 var score = 0
@@ -15,7 +15,8 @@ func _ready():
 
 
 func end_game():
-	get_node("Game End Screen/HBoxContainer/Final Score Label").text = "Final Score: " + score
+	get_tree().paused = true
+	get_node("Game End Screen/HBoxContainer/Final Score Label").text = "Final Score: " + str(score)
 	get_node("Game End Screen").visible = true
 	
 
@@ -73,8 +74,9 @@ func _process(delta):
 			# hit registration
 			
 			for area in hit_reg.get_overlapping_areas():
-				if "Asteroid" in area.name:
-					area.damage(self)
+				print(area.get_parent().name)
+				if "Asteroid" in area.get_parent().name:
+					area.get_parent().damage(self)
 			
 			# since the bullet trace is a child of hit registration it should mark the point that the bullet was fired at
 			get_node("Gunner/Hit Registration/Bullet Trace").emitting = true
@@ -98,3 +100,7 @@ func _on_Asteroid_Timer_timeout():
 	var asteroid = asteroidScene.instance()
 	
 	get_node("Asteroids").add_child(asteroid)
+
+
+func _on_Play_Again_Button_pressed():
+	get_tree().change_scene("res://Viewspace.tscn")

@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Asteroids/Asteroid.gd" type="Script" id=3]
+
+[node name="Asteroid" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Distance" type="Label" parent="."]
+visible = false
+margin_left = 2.17464
+margin_top = -38.9881
+margin_right = 42.1746
+margin_bottom = -24.9881
+text = "350m"
+__meta__ = {
+"_edit_use_anchors_": false
+}

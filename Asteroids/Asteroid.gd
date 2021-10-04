@@ -1,4 +1,4 @@
-extends Area2D
+extends Node2D
 
 
 # Declare member variables here. Examples:
@@ -19,15 +19,15 @@ func _ready():
 	
 	# picking which version of the asteroid to use
 	var version = rng.randi_range(1, 2) 
+	var size = "Medium"
 	
-	print(version)
-	get_node("Sprite"+str(version)).visible = true
-	get_node("Collision"+str(version)).disabled = false
-	get_node("Collision"+str(version)).visible = true
+	var asteroidSource = load("res://Asteroids/"+size+str(version)+".tscn")
+	
+	get_node(".").add_child(asteroidSource.instance())
 	
 	# set a random rotation
 	
-	get_node(".").set_rotation(rng.randi_range(-180, 180))
+	get_node("Hitbox").set_rotation(rng.randi_range(-180, 180))
 	
 	# don't allow the asteroids to be spawned within a certain radius of the gun
 	# this is mostly just to prevent having to deal with asteroids being hidden behind the gun
@@ -40,8 +40,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	get_node(".").set_rotation(get_node(".").get_rotation() + rotation_speed*delta)
-	get_node("Distance").set_rotation(-get_node(".").get_rotation())
+	get_node("Hitbox").set_rotation(get_node("Hitbox").get_rotation() + rotation_speed*delta)
+
 	# show a warning with distance when within 500m of the ship
 	if distance < 500:
 		get_node("Distance").text = str(round(distance)) + "m"
