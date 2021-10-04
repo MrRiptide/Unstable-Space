@@ -54,6 +54,7 @@ func _process(delta):
 	get_node("Gunner").self_modulate = Color(1.0, 1-((255.0-80)/255)*(float(heat) / max_heat), 1-(float(heat) / max_heat))
 
 	
+	get_node("HeatBar").value = heat
 	if heat >= max_heat:
 		overheated = true
 	

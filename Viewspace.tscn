@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Gamespace.gd" type="Script" id=1]
 [ext_resource path="res://res/gattling_gun-Sheet.png" type="Texture" id=2]
@@ -75,6 +75,16 @@ scale = 5.0
 scale_curve = SubResource( 14 )
 color_ramp = SubResource( 12 )
 
+[sub_resource type="Gradient" id=16]
+colors = PoolColorArray( 1, 0.773144, 0, 1, 1, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=17]
+gradient = SubResource( 16 )
+
+[sub_resource type="StyleBoxTexture" id=18]
+texture = SubResource( 17 )
+region_rect = Rect2( 0, 0, 2048, 1 )
+
 [node name="Base" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -89,7 +99,7 @@ texture = ExtResource( 3 )
 position = Vector2( 512, 536 )
 frames = SubResource( 8 )
 animation = "firing"
-frame = 2
+frame = 3
 playing = true
 __meta__ = {
 "_edit_group_": true
@@ -132,6 +142,19 @@ margin_bottom = 600.0
 step = 1.0
 value = 100.0
 rounded = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HeatBar" type="ProgressBar" parent="."]
+margin_left = 832.0
+margin_top = 568.0
+margin_right = 1024.0
+margin_bottom = 600.0
+hint_tooltip = "Heat"
+custom_styles/fg = SubResource( 18 )
+max_value = 750.0
+percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
 }

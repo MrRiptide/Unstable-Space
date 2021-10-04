@@ -43,6 +43,8 @@ func _ready():
 	
 	get_node(".").add_child(asteroidSource.instance())
 	
+	get_node(".").move_child(get_node("Distance"), 1)
+	
 	# set a random rotation
 	
 	get_node("Hitbox").set_rotation(rng.randi_range(-180, 180))
