@@ -3,9 +3,12 @@ extends Node2D
 
 # Declare member variables here. Examples:
 var direction = 0
-var speed = 50
+var speed
 var rotation_speed = 0.05
 var distance = 1000
+var health = 1
+var scale_multi
+var damage
 
 var rng = RandomNumberGenerator.new()
 
@@ -17,9 +20,24 @@ func _ready():
 	
 	self.position = Vector2(x_range[1]/2, y_range[1])
 	
-	# picking which version of the asteroid to use
-	var version = rng.randi_range(1, 2) 
-	var size = "Medium"
+	var version
+	var size
+	
+	# if at certain stage and 30% chance spawn as large
+	if get_node("../../Asteroid Timer").wait_time < 4 and rng.randf() < 0.3:
+		version = rng.randi_range(1, 2) 
+		speed = 100
+		health = 5
+		damage = 15
+		scale_multi = 3
+		size = "Large"
+	# else spawn as medium
+	else:
+		version = rng.randi_range(1, 3) 
+		speed = 150
+		damage = 10
+		scale_multi = 1
+		size = "Medium"
 	
 	var asteroidSource = load("res://Asteroids/"+size+str(version)+".tscn")
 	
@@ -49,14 +67,21 @@ func _process(delta):
 	# asteroid has hit the ship, deal damage and destroy the asteroid
 	# TODO: add animations for the ship being hit
 	if distance < 0:
-		get_node("../../").damage()
+		get_node("../../").damage(damage)
 		self.get_parent().remove_child(self)
 	distance -= speed * delta
 	
 	var percent_size = 1-(distance / 1000)
-	var max_scale = 2.5
+	var max_scale = 1.5
 	get_node(".").scale = Vector2(max_scale*percent_size, max_scale*percent_size)
 
 func damage(score_manager):
-	get_parent().remove_child(self)
+	var explosionSource = load("res://Asteroids/ExplosionParticles.tscn")
+	var explosion = explosionSource.instance()
+	explosion.global_position = self.global_position
+	var percent_size = 1-(distance / 1000)
+	var max_scale = 1.5
+	#explosion.scale = 100*get_node(".").scale
+	explosion.source = self
+	get_parent().add_child(explosion)
 	score_manager.add_score(100)

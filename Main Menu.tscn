@@ -28,13 +28,13 @@ __meta__ = {
 margin_left = 457.0
 margin_right = 566.0
 margin_bottom = 600.0
-custom_constants/separation = 150
+custom_constants/separation = 100
 alignment = 1
 
 [node name="Title" type="Label" parent="HBoxContainer/VBoxContainer"]
-margin_top = 208.0
+margin_top = 83.0
 margin_right = 109.0
-margin_bottom = 222.0
+margin_bottom = 97.0
 custom_constants/shadow_as_outline = 6
 text = "Unstable Space"
 align = 1
@@ -43,9 +43,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Start Game" type="Button" parent="HBoxContainer/VBoxContainer"]
-margin_top = 372.0
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer"]
+margin_top = 197.0
 margin_right = 109.0
-margin_bottom = 392.0
+margin_bottom = 197.0
+
+[node name="Control2" type="Control" parent="HBoxContainer/VBoxContainer"]
+margin_top = 297.0
+margin_right = 109.0
+margin_bottom = 297.0
+
+[node name="Start Game" type="Button" parent="HBoxContainer/VBoxContainer"]
+margin_top = 397.0
+margin_right = 109.0
+margin_bottom = 417.0
+text = "Play Game"
+
+[node name="Control3" type="Control" parent="HBoxContainer/VBoxContainer"]
+margin_top = 517.0
+margin_right = 109.0
+margin_bottom = 517.0
 
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/Start Game" to="." method="_on_Start_Game_pressed"]

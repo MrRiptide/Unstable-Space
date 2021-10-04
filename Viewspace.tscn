@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Gamespace.gd" type="Script" id=1]
 [ext_resource path="res://res/gattling_gun-Sheet.png" type="Texture" id=2]
 [ext_resource path="res://res/earth_explosion.png" type="Texture" id=3]
+[ext_resource path="res://Pause Screen.gd" type="Script" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -87,6 +88,7 @@ texture = ExtResource( 3 )
 position = Vector2( 512, 536 )
 frames = SubResource( 8 )
 animation = "firing"
+frame = 2
 playing = true
 __meta__ = {
 "_edit_group_": true
@@ -133,9 +135,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Game End Screen" type="HBoxContainer" parent="."]
-pause_mode = 2
+[node name="Game End Screen" type="Control" parent="."]
 visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Game End Screen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 984.0
+margin_bottom = 560.0
+color = Color( 0, 0, 0, 0.756863 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Game End Screen"]
+pause_mode = 2
 margin_right = 1024.0
 margin_bottom = 600.0
 alignment = 1
@@ -143,14 +162,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="VBoxContainer" parent="Game End Screen"]
+[node name="HBoxContainer" type="VBoxContainer" parent="Game End Screen/VBoxContainer"]
 margin_left = 437.0
 margin_right = 587.0
 margin_bottom = 600.0
 custom_constants/separation = 40
 alignment = 1
 
-[node name="Game Over Label" type="Label" parent="Game End Screen/HBoxContainer"]
+[node name="Game Over Label" type="Label" parent="Game End Screen/VBoxContainer/HBoxContainer"]
 margin_top = 191.0
 margin_right = 150.0
 margin_bottom = 205.0
@@ -160,26 +179,97 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Final Score Label" type="Label" parent="Game End Screen/HBoxContainer"]
+[node name="Final Score Label" type="Label" parent="Game End Screen/VBoxContainer/HBoxContainer"]
 margin_top = 245.0
 margin_right = 150.0
 margin_bottom = 259.0
 text = "Final Score: 42069"
 align = 1
 
-[node name="Play Again Button" type="Button" parent="Game End Screen/HBoxContainer"]
+[node name="Play Again Button" type="Button" parent="Game End Screen/VBoxContainer/HBoxContainer"]
 margin_top = 299.0
 margin_right = 150.0
 margin_bottom = 334.0
 rect_min_size = Vector2( 150, 35 )
 text = "Play Again"
 
-[node name="Main Menu Button" type="Button" parent="Game End Screen/HBoxContainer"]
+[node name="Main Menu Button" type="Button" parent="Game End Screen/VBoxContainer/HBoxContainer"]
 margin_top = 374.0
 margin_right = 150.0
 margin_bottom = 409.0
 rect_min_size = Vector2( 0, 35 )
 text = "Main Menu"
 
+[node name="Pause Screen" type="Control" parent="."]
+pause_mode = 2
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Pause Screen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 984.0
+margin_bottom = 560.0
+color = Color( 0, 0, 0, 0.756863 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Pause Screen"]
+pause_mode = 2
+margin_right = 1024.0
+margin_bottom = 600.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Pause Screen/VBoxContainer"]
+margin_left = 437.0
+margin_right = 587.0
+margin_bottom = 600.0
+custom_constants/separation = 40
+alignment = 1
+
+[node name="Paused Label" type="Label" parent="Pause Screen/VBoxContainer/HBoxContainer"]
+margin_top = 180.0
+margin_right = 150.0
+margin_bottom = 194.0
+text = "Paused"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Resume Button" type="Button" parent="Pause Screen/VBoxContainer/HBoxContainer"]
+margin_top = 234.0
+margin_right = 150.0
+margin_bottom = 269.0
+rect_min_size = Vector2( 0, 35 )
+text = "Resume"
+
+[node name="Restart Button" type="Button" parent="Pause Screen/VBoxContainer/HBoxContainer"]
+margin_top = 309.0
+margin_right = 150.0
+margin_bottom = 344.0
+rect_min_size = Vector2( 150, 35 )
+text = "Restart"
+
+[node name="Main Menu Button" type="Button" parent="Pause Screen/VBoxContainer/HBoxContainer"]
+margin_top = 384.0
+margin_right = 150.0
+margin_bottom = 419.0
+rect_min_size = Vector2( 0, 35 )
+text = "Main Menu"
+
 [connection signal="timeout" from="Asteroid Timer" to="." method="_on_Asteroid_Timer_timeout"]
-[connection signal="pressed" from="Game End Screen/HBoxContainer/Play Again Button" to="." method="_on_Play_Again_Button_pressed"]
+[connection signal="pressed" from="Game End Screen/VBoxContainer/HBoxContainer/Play Again Button" to="." method="_on_Play_Again_Button_pressed"]
+[connection signal="pressed" from="Game End Screen/VBoxContainer/HBoxContainer/Main Menu Button" to="." method="_on_Main_Menu_Button_pressed"]
+[connection signal="pressed" from="Pause Screen/VBoxContainer/HBoxContainer/Resume Button" to="Pause Screen" method="_on_Resume_Button_pressed"]
+[connection signal="pressed" from="Pause Screen/VBoxContainer/HBoxContainer/Restart Button" to="." method="_on_Play_Again_Button_pressed"]
+[connection signal="pressed" from="Pause Screen/VBoxContainer/HBoxContainer/Main Menu Button" to="." method="_on_Main_Menu_Button_pressed"]
