@@ -40,6 +40,6 @@ func _process(delta):
 	var percent_size = (distance / 1000)
 	get_node("CollisionShape2D").scale = Vector2(1-percent_size, 1-percent_size)
 
-func damage():
-	print("[", name, "] ive been hit!")
+func damage(score_manager):
 	get_parent().remove_child(self)
+	score_manager.add_score(100)
